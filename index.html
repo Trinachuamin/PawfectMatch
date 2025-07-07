@@ -1,40 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Pet Match AI</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
   <!-- Banner -->
   <header>
-    <img src="images/banner.png" alt="Banner" class="banner-img">
+    <a href="#general-section">
+      <img src="images/banner.png" alt="Banner" class="banner-img">
+    </a>
   </header>
 
-  <!-- Intro Text -->
-  <h1>Find Your Perfect Pet Companion with AI</h1>
-  <p>Select an animal to begin your personalized pet journey.</p>
+<section id="general-section" class="section-general">
+  <h2>Not sure what pet suits you?</h2>
+  <p class="subtext">Chat with our General Assistant to discover the best companion for your lifestyle!</p>
+  <hr class="divider" />
 
-  <!-- Animal Cards -->
-  <div class="card-container">
-    <a href="cat.html" class="card">
-      <img src="images/blank.png" alt="Cat">
-      <h2>Cat</h2>
-    </a>
-    <a href="dog.html" class="card">
-      <img src="images/blank.png" alt="Dog">
-      <h2>Dog</h2>
-    </a>
-    <a href="rabbit.html" class="card">
-      <img src="images/blank.png" alt="Rabbit">
-      <h2>Rabbit</h2>
-    </a>
-    <a href="hamster.html" class="card">
-      <img src="images/blank.png" alt="Hamster">
-      <h2>Hamster</h2>
+  <div class="single-card-section">
+    <a href="general.html" class="card general-card">
+      <img src="images/General.png" alt="General Assistant" />
+      <h2>General Assistant</h2>
     </a>
   </div>
+</section>
+
+
+
+  <!-- Animal Chatbot Section -->
+  <section class="section-animals">
+    <h1>Find Your Perfect Pet Companion with AI</h1>
+    <p>Select an assistant to begin your personalized pet journey.</p>
+
+    <h2>Choose a Pet-Specific Assistant</h2>
+    <div class="card-container">
+      <a href="cat.html" class="card">
+        <img src="images/catcard.png" alt="Cat">
+        <h2>Cat</h2>
+      </a>
+      <a href="dog.html" class="card">
+        <img src="images/dogcard.png" alt="Dog">
+        <h2>Dog</h2>
+      </a>
+      <a href="rabbit.html" class="card">
+        <img src="images/rabbitcard.png" alt="Rabbit">
+        <h2>Rabbit</h2>
+      </a>
+      <a href="hamster.html" class="card">
+        <img src="images/catcard.png" alt="Hamster">
+        <h2>Hamster</h2>
+      </a>
+    </div>
+  </section>
 
 </body>
+
 </html>

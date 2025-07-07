@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Cat Assistant</title>
+  <style>
+    @font-face {
+      font-family: 'BaraTH';
+      src: url('fonts/bara.ttf') format('truetype');
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'BaraTH', sans-serif;
+      background: url('images/catbg.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      text-align: center;
+      padding: 20px;
+    }
+
+    header h1 {
+      font-size: 55px;
+      margin: 0;
+      color: #a0522d;
+    }
+
+    header img.buddy-icon {
+      width: 90px;
+      vertical-align: middle;
+      margin-left: 10px;
+    }
+
+    header p {
+      font-size: 18px;
+      color: #5a4636;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .chat-container {
+      width: 90%;
+      max-width: 800px;
+      height: 60vh;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+    }
+
+    #chatbox {
+      flex: 1;
+      overflow-y: auto;
+      padding: 10px;
+      background: #fff7ed;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #e0b089;
+    }
+
+    .message {
+      display: flex;
+      margin-bottom: 12px;
+    }
+
+    .message.bot img {
+      width: 40px;
+      height: 40px;
+      object-fit: cover;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+
+    .bubble {
+      background: #f0e6d2;
+      padding: 10px 15px;
+      border-radius: 15px;
+      max-width: 80%;
+      font-family: 'Nunito', sans-serif;
+    }
+
+    .message.user {
+      justify-content: flex-end;
+    }
+
+    .message.user .bubble {
+      background: #ffe0b3;
+    }
+
+    .message.bot {
+      justify-content: flex-start;
+    }
+
+    .loading {
+      font-style: italic;
+      color: #666;
+      margin-left: 10px;
+    }
+
+    #chat-error {
+      color: #cc0000;
+      font-size: 0.95rem;
+      margin-top: 0.3rem;
+    }
+
+    input[type="text"] {
+      width: 65%;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #d8b08c;
+      margin-right: 10px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #f7b16c;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      color: white;
+      font-weight: bold;
+      font-family: 'BaraTH', sans-serif;
+    }
+
+    button:hover {
+      background-color: #e19e56;
+    }
+
+    .clear-btn {
+      margin-top: 10px;
+      background-color: #ddd;
+      color: #333;
+    }
+
+    .clear-btn:hover {
+      background-color: #bbb;
+    }
+
+    .back-btn {
+      display: inline-block;
+      padding: 10px 20px;
+      margin: 20px auto 40px;
+      background-color: #f7b16c;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-family: 'BaraTH', sans-serif;
+      font-weight: bold;
+      text-align: center;
+      transition: background-color 0.3s ease;
+    }
+
+    .back-btn:hover {
+      background-color: #e19e56;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>Talk to Whiskers <img src="images/whiskers.jpg" alt="Whiskers" class="buddy-icon" /></h1>
+    <p>Your friendly cat assistant here to help you find your purr-fect match!</p>
+  </header>
+
+  <main>
+    <div class="chat-container">
+      <div id="chatbox"></div>
+      <div>
+        <input type="text" id="userInput" placeholder="Ask me something..." />
+        <button onclick="handleSend()">Send</button>
+        <button class="clear-btn" onclick="clearChat()">Clear Chat</button>
+        <div id="chat-error"></div>
+      </div>
+    </div>
+
+    <div style="text-align: center;">
+      <a href="index.html" class="back-btn">← Back to Home</a>
+    </div>
+  </main>
+
+  <script>
+    const whiskersImg = "images/whiskers.jpg";
+    const chatbox = document.getElementById("chatbox");
+    const errorDiv = document.getElementById("chat-error");
+
+    function renderMarkdown(md) {
+      return md
+        .replace(/\*\*(.*?)\*\*/g, '<b>$1</b>')
+        .replace(/\*(.*?)\*/g, '<i>$1</i>')
+        .replace(/`([^`]+)`/g, '<code>$1</code>')
+        .replace(/\n/g, '<br>');
+    }
+
+    function renderMessage(sender, text) {
+      const msg = document.createElement("div");
+      msg.className = "message " + (sender === "user" ? "user" : "bot");
+
+      const content = `
+        ${sender === "bot" ? `<img src="${whiskersImg}" alt="Whiskers">` : ""}
+        <div class="bubble">${renderMarkdown(text)}</div>
+      `;
+
+      msg.innerHTML = content;
+      chatbox.appendChild(msg);
+      chatbox.scrollTop = chatbox.scrollHeight;
+
+      saveChat();
+    }
+
+    function renderLoading() {
+      const loading = document.createElement("p");
+      loading.className = "loading";
+      loading.id = "loading";
+      loading.textContent = "Whiskers is thinking...";
+      chatbox.appendChild(loading);
+      chatbox.scrollTop = chatbox.scrollHeight;
+    }
+
+    function removeLoading() {
+      const loading = document.getElementById("loading");
+      if (loading) loading.remove();
+    }
+
+    async function query(data) {
+      const response = await fetch("https://trinachua-flowise.hf.space/api/v1/prediction/d17030d0-9d02-4361-8acf-29aba9b1429f", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+      const result = await response.json();
+      return result;
+    }
+
+    async function handleSend() {
+      const inputField = document.getElementById("userInput");
+      const input = inputField.value.trim();
+      if (!input) return;
+
+      renderMessage("user", input);
+      inputField.value = "";
+      errorDiv.textContent = "";
+
+      renderLoading();
+
+      try {
+        const response = await query({ question: input });
+        removeLoading();
+        renderMessage("bot", response.text);
+      } catch (err) {
+        removeLoading();
+        errorDiv.textContent = "Oops! Something went wrong. Please try again.";
+      }
+    }
+
+    function saveChat() {
+      localStorage.setItem("catChatHistory", chatbox.innerHTML);
+    }
+
+    function loadChat() {
+      const history = localStorage.getItem("catChatHistory");
+      if (history) chatbox.innerHTML = history;
+    }
+
+    function clearChat() {
+      if (confirm("Are you sure you want to clear the chat history?")) {
+        localStorage.removeItem("catChatHistory");
+        chatbox.innerHTML = "";
+      }
+    }
+
+    window.onload = loadChat;
+  </script>
+</body>
+
+</html>
