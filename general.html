@@ -8,7 +8,7 @@
 <body>
   <header>
     <h1>Pet Matching Chatbot</h1>
-    <p>Find your purrfect pet companion!</p>
+    <p>Find your purrfect pet companion!🐾</p>
   </header>
 
   <main>
@@ -42,7 +42,7 @@ query({"question": "Hey, how are you?"}).then((response) => {
       const input = document.getElementById("userInput").value;
       document.getElementById("chatbox").innerHTML += `<p><strong>You:</strong> ${input}</p>`;
       const response = await query({ question: input });
-      document.getElementById("chatbox").innerHTML += `<p><strong>Whiskers:</strong> ${response.text}</p>`;
+      document.getElementById("chatbox").innerHTML += `<p><strong>Pet counsellor:</strong> ${response.text}</p>`;
       document.getElementById("userInput").value = "";
     }
   </script>
