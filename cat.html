@@ -158,8 +158,8 @@
       display: inline-block;
       padding: 10px 20px;
       margin: 20px auto 40px;
-      background-color: #f7b16c;
-      color: white;
+      background-color: #a0522d;
+      color: #FFF5EA;
       text-decoration: none;
       border-radius: 8px;
       font-family: 'BaraTH', sans-serif;
@@ -171,21 +171,168 @@
     .back-btn:hover {
       background-color: #e19e56;
     }
+
+    /* New Updated Section Styling */
+    .catmatch-info {
+      text-align: center;
+      padding: 50px 20px 40px;
+      max-width: 950px;
+      margin: 0 auto;
+      font-family: 'BaraTH', sans-serif;
+      color: #5a4636;
+    }
+
+    .section-title {
+      font-size: 48px;
+      /* Increased size */
+      color: #a0522d;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .intro-subtext {
+      font-size: 18px;
+      max-width: 720px;
+      margin: 0 auto 40px;
+      line-height: 1.6;
+    }
+
+    .section-subtitle {
+      font-size: 32px;
+      color: #a0522d;
+      margin-top: 50px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .cat-benefits {
+      list-style: none;
+      padding: 0;
+      margin: 0 auto 40px;
+      max-width: 600px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+
+    .cat-benefits li {
+      position: relative;
+      font-size: 18px;
+      padding-left: 0;
+      margin-bottom: 15px;
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    .cat-benefits li::before {
+      content: "🐾";
+      margin-right: 10px;
+    }
+
+
+    .breed-cards {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 40px;
+      margin-top: 20px;
+    }
+
+    .breed-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 180px;
+    }
+
+    .breed-card img {
+      width: 100%;
+      border-radius: 20px;
+      object-fit: cover;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .breed-card p {
+      font-size: 18px;
+      color: #62442f;
+      margin-top: 12px;
+    }
+
+    .section-divider {
+      width: 60px;
+      height: 4px;
+      background-color: #d8b08c;
+      border: none;
+      border-radius: 2px;
+      margin: 40px auto;
+    }
+
+    .site-footer {
+      background-color: #fff4e6;
+      color: #5a4636;
+      text-align: center;
+      padding: 20px 10px;
+      font-size: 15px;
+      font-family: 'BaraTH', sans-serif;
+      border-top: 2px solid #e0b089;
+      margin-top: 60px;
+    }
   </style>
+
 </head>
 
 <body>
-
-  <header>
-    <h1>Talk to Whiskers <img src="images/whiskers.jpg" alt="Whiskers" class="buddy-icon" /></h1>
-    <p>Your friendly cat assistant here to help you find your purr-fect match!</p>
-  </header>
-
   <main>
+    <section class="catmatch-info">
+      <h2 class="section-title">Welcome to CatMatch !</h2>
+      <p class="intro-subtext">
+        Discover the ideal cat breed for your lifestyle with our AI-powered assistant. Whether you're looking for a
+        cuddly lap cat or an independent explorer, Whiskers is here to help!
+      </p>
+
+      <hr class="section-divider">
+
+      <h2 class="section-subtitle">Why Choose a Cat?</h2>
+      <ul class="cat-benefits">
+        <li>Great for apartments and small homes</li>
+        <li>Independent yet affectionate companions</li>
+        <li>Playful, curious, and entertaining personalities</li>
+        <li>Suitable for both families and individuals</li>
+      </ul>
+
+      <hr class="section-divider" />
+
+      <h2 class="section-subtitle">Popular Cat Breeds</h2>
+      <div class="breed-cards">
+        <div class="breed-card">
+          <img src="images/ragdoll.jpg" alt="Ragdoll cat" />
+          <p>Ragdoll</p>
+        </div>
+        <div class="breed-card">
+          <img src="images/siamese.avif" alt="Siamese cat" />
+          <p>Siamese</p>
+        </div>
+        <div class="breed-card">
+          <img src="images/britishshorthair.jpg" alt="British Shorthair cat" />
+          <p>British Shorthair</p>
+        </div>
+      </div>
+      <hr class="section-divider" />
+
+    </section>
+
+
+    <header>
+      <h1>Talk to Whiskers <img src="images/whiskers.jpg" alt="Whiskers" class="buddy-icon" /></h1>
+      <p>Your friendly cat assistant here to help you find your purr-fect match!</p>
+    </header>
+
     <div class="chat-container">
       <div id="chatbox"></div>
       <div>
-        <input type="text" id="userInput" placeholder="Ask me something..." />
+        <input type="text" id="userInput" placeholder="Ask me about cat questions..." />
         <button onclick="handleSend()">Send</button>
         <button class="clear-btn" onclick="clearChat()">Clear Chat</button>
         <div id="chat-error"></div>
@@ -196,6 +343,9 @@
       <a href="index.html" class="back-btn">← Back to Home</a>
     </div>
   </main>
+  <footer class="site-footer">
+    <p>&copy; 2025 CatMatch. Find your perfect pet companion with AI !</p>
+  </footer>
 
   <script>
     const whiskersImg = "images/whiskers.jpg";
@@ -288,6 +438,14 @@
     }
 
     window.onload = loadChat;
+    // Listen for Enter key press in input field
+    document.getElementById("userInput").addEventListener("keydown", function (event) {
+      if (event.key === "Enter") {
+        event.preventDefault(); // Prevents accidental form submission
+        handleSend();
+      }
+    });
+
   </script>
 </body>
 
