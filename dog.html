@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Talk to Buddy 🐶</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background-color: #fffaf5;
+            padding: 40px 20px;
+            text-align: center;
+            color: #333;
+        }
+
+        .buddy-icon {
+            width: 80px;
+            height: 80px;
+            vertical-align: middle;
+            /* margin-left: 10px; */
+            border-radius: 50%;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: #6a3f1d;
+        }
+
+        p {
+            margin-bottom: 30px;
+            font-size: 1.2rem;
+            color: #5e4b43;
+        }
+
+        .chat-container {
+            background: #fff;
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        #chatbox {
+            max-height: 400px;
+            overflow-y: auto;
+            padding: 15px;
+            margin-bottom: 20px;
+            text-align: left;
+            border: 1px solid #eee;
+            border-radius: 10px;
+            background-color: #fefefe;
+        }
+
+        .message {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .message.user {
+            justify-content: flex-end;
+        }
+
+        .message.bot {
+            justify-content: flex-start;
+        }
+
+        .message img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .bubble {
+            background: #f0f0f0;
+            padding: 10px 15px;
+            border-radius: 12px;
+            max-width: 70%;
+            word-wrap: break-word;
+        }
+
+        .user .bubble {
+            background: #8B4A1E;
+            color: white;
+        }
+
+        input[type="text"] {
+            width: 70%;
+            padding: 12px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin-right: 10px;
+        }
+
+        button {
+            padding: 12px 20px;
+            font-size: 1rem;
+            background-color: #8B4A1E;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #4B2E23;
+        }
+
+       .clear-btn {
+    background-color: #D7D0C8;
+    color: #4B2E23;
+    margin-top: 10px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.clear-btn:hover {
+    background-color: white;
+    color: #4B2E23;
+}
+        
+        .loading {
+            font-style: italic;
+            color: #999;
+            margin-left: 10px;
+        }
+
+        @media (max-width: 600px) {
+
+            input[type="text"],
+            button {
+                width: 100%;
+                margin: 5px 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Talk to Buddy <img src="images/buddy.png" alt="Buddy" class="buddy-icon" /></h1>
+    <p>Your friendly dog adoption assistant – ready to help you find your pawfect match!</p>
+
+    <main>
+        <div class="chat-container">
+            <div id="chatbox"></div>
+            <input type="text" id="userInput" placeholder="Ask me something..." />
+            <button onclick="handleSend()">Send</button>
+            <button class="clear-btn" onclick="clearChat()">Clear Chat</button>
+        </div>
+    </main>
+
+    <script>
+        const buddyImg = "images/buddy.png"; // image must be inside /images folder
+
+        const chatbox = document.getElementById("chatbox");
+
+        function renderMessage(sender, text) {
+            const msg = document.createElement("div");
+            msg.className = "message " + (sender === "user" ? "user" : "bot");
+
+            const content = `
+        ${sender === "bot" ? `<img src="${buddyImg}" alt="Buddy">` : ""}
+        <div class="bubble">${text}</div>
+      `;
+
+            msg.innerHTML = content;
+            chatbox.appendChild(msg);
+            chatbox.scrollTop = chatbox.scrollHeight;
+
+            saveChat();
+        }
+
+        function renderLoading() {
+            const loading = document.createElement("p");
+            loading.className = "loading";
+            loading.id = "loading";
+            loading.textContent = "Buddy is typing...";
+            chatbox.appendChild(loading);
+            chatbox.scrollTop = chatbox.scrollHeight;
+        }
+
+        function removeLoading() {
+            const loading = document.getElementById("loading");
+            if (loading) loading.remove();
+        }
+
+        async function query(data) {
+            const response = await fetch("https://pannicking-flowise.hf.space/api/v1/prediction/a938e47d-41e2-4b27-bc25-4943b84276a6", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data)
+            });
+            const result = await response.json();
+            return result;
+        }
+
+        async function handleSend() {
+            const inputField = document.getElementById("userInput");
+            const input = inputField.value.trim();
+            if (!input) return;
+
+            renderMessage("user", input);
+            inputField.value = "";
+
+            renderLoading();
+
+            try {
+                const response = await query({ question: input });
+                removeLoading();
+                renderMessage("bot", response.text);
+            } catch (err) {
+                removeLoading();
+                renderMessage("bot", "Oops! Something went wrong.");
+            }
+        }
+
+        function saveChat() {
+            localStorage.setItem("chatHistory", chatbox.innerHTML);
+        }
+
+        function loadChat() {
+            const history = localStorage.getItem("chatHistory");
+            if (history) chatbox.innerHTML = history;
+        }
+
+        function clearChat() {
+            if (confirm("Are you sure you want to clear the chat history?")) {
+                localStorage.removeItem("chatHistory");
+                chatbox.innerHTML = "";
+            }
+        }
+
+        window.onload = loadChat;
+    </script>
+</body>
+
+</html>
