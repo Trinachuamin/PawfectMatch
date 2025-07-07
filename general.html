@@ -3,19 +3,113 @@
 <head>
   <meta charset="UTF-8">
   <title>General Pet Assistant</title>
-  <link rel="stylesheet" href="cat.css">
+  <style>
+    /* Reset and base styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background: #FFF5EA;
+      color: #4B2E23;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    header {
+      background: #8B4A1E;
+      color: #FFF5EA;
+      text-align: center;
+      padding: 1.5rem 0;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    header h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+    header p {
+      font-size: 1rem;
+    }
+    main {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+    }
+    .chat-container {
+      background: #FE E9D2;
+      width: 100%;
+      max-width: 500px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      border: 2px solid #BFA288;
+    }
+    #chatbox {
+      padding: 1rem;
+      flex: 1;
+      overflow-y: auto;
+      border-bottom: 1px solid #D7D0C8;
+    }
+    #chatbox p {
+      margin-bottom: 1rem;
+      line-height: 1.4;
+    }
+    strong.user-label {
+      color: #8B4A1E;
+    }
+    strong.bot-label {
+      color: #BFA288;
+    }
+    .chat-input-area {
+      display: flex;
+      border-top: 1px solid #D7D0C8;
+    }
+    .chat-input-area input {
+      flex: 1;
+      padding: 0.75rem;
+      font-size: 1rem;
+      border: none;
+      outline: none;
+    }
+    .chat-input-area button {
+      padding: 0.75rem;
+      font-size: 1rem;
+      background: #EDB99F;
+      color: #4B2E23;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      border: none;
+    }
+    .chat-input-area button:hover {
+      background: #FDE4C7;
+    }
+    @media (max-width: 600px) {
+      .chat-container {
+        width: 100%;
+        margin: 0 1rem;
+      }
+    }
+  </style>
 </head>
 <body>
   <header>
     <h1>Pet Matching Chatbot</h1>
-    <p>Find your purrfect pet companion!</p>
+    <p>Find your pawfect pet companion!🐾</p>
   </header>
 
   <main>
     <div class="chat-container">
       <div id="chatbox"></div>
-      <input type="text" id="userInput" placeholder="Ask me something..." />
-      <button onclick="handleSend()">Send</button>
+      <div class="chat-input-area">
+        <input type="text" id="userInput" placeholder="Ask me something..." />
+        <button onclick="handleSend()">Send</button>
+      </div>
     </div>
   </main>
 
@@ -40,11 +134,11 @@ query({"question": "Hey, how are you?"}).then((response) => {
 
     async function handleSend() {
       const input = document.getElementById("userInput").value;
-      document.getElementById("chatbox").innerHTML += `<p><strong>You:</strong> ${input}</p>`;
+      document.getElementById("chatbox").innerHTML += `<p><strong class="user-label">You:</strong> ${input}</p>`;
       const response = await query({ question: input });
-      document.getElementById("chatbox").innerHTML += `<p><strong>Whiskers:</strong> ${response.text}</p>`;
+      document.getElementById("chatbox").innerHTML += `<p><strong class="bot-label">Paw Wizard:</strong> ${response.text}</p>`;
       document.getElementById("userInput").value = "";
     }
   </script>
 </body>
-</html>>
+</html>
