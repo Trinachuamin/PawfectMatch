@@ -1,357 +1,469 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>RabbitMatch – Find Your Ideal Bunny</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/616/616408.png" />
+  <meta charset="UTF-8">
+  <title>Rabbit Assistant</title>
+  <style>
+    @font-face {
+      font-family: 'BaraTH';
+      src: url('fonts/bara.ttf') format('truetype');
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'BaraTH', sans-serif;
+      background: url('images/Rabbitbg.png') no-repeat center center fixed;
+      background-size: cover;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      text-align: center;
+      padding: 20px;
+    }
+
+    header h1 {
+      font-size: 55px;
+      margin: 0;
+      color: #a0522d;
+    }
+
+    header img.buddy-icon {
+      width: 90px;
+      vertical-align: middle;
+      margin-left: 10px;
+    }
+
+    header p {
+      font-size: 18px;
+      color: #5a4636;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .chat-container {
+      width: 90%;
+      max-width: 800px;
+      height: 60vh;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+    }
+
+    #chatbox {
+      flex: 1;
+      overflow-y: auto;
+      padding: 10px;
+      background: #fff7ed;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #e0b089;
+    }
+
+    .message {
+      display: flex;
+      margin-bottom: 12px;
+    }
+
+    .message.bot img {
+      width: 40px;
+      height: 40px;
+      object-fit: cover;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+
+    .bubble {
+      background: #f0e6d2;
+      padding: 10px 15px;
+      border-radius: 15px;
+      max-width: 80%;
+      font-family: 'Nunito', sans-serif;
+    }
+
+    .message.user {
+      justify-content: flex-end;
+    }
+
+    .message.user .bubble {
+      background: #ffe0b3;
+    }
+
+    .message.bot {
+      justify-content: flex-start;
+    }
+
+    .loading {
+      font-style: italic;
+      color: #666;
+      margin-left: 10px;
+    }
+
+    #chat-error {
+      color: #cc0000;
+      font-size: 0.95rem;
+      margin-top: 0.3rem;
+    }
+
+    input[type="text"] {
+      width: 65%;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #d8b08c;
+      margin-right: 10px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #f7b16c;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      color: white;
+      font-weight: bold;
+      font-family: 'BaraTH', sans-serif;
+    }
+
+    button:hover {
+      background-color: #e19e56;
+    }
+
+    .clear-btn {
+      margin-top: 10px;
+      background-color: #ddd;
+      color: #333;
+    }
+
+    .clear-btn:hover {
+      background-color: #bbb;
+    }
+
+    .back-btn {
+      display: inline-block;
+      padding: 10px 20px;
+      margin: 20px auto 40px;
+      background-color: #a0522d;
+      color: #FFF5EA;
+      text-decoration: none;
+      border-radius: 8px;
+      font-family: 'BaraTH', sans-serif;
+      font-weight: bold;
+      text-align: center;
+      transition: background-color 0.3s ease;
+    }
+
+    .back-btn:hover {
+      background-color: #e19e56;
+    }
+
+    /* New Updated Section Styling */
+    .catmatch-info {
+      text-align: center;
+      padding: 50px 20px 40px;
+      max-width: 950px;
+      margin: 0 auto;
+      font-family: 'BaraTH', sans-serif;
+      color: #5a4636;
+    }
+
+    .section-title {
+      font-size: 48px;
+      /* Increased size */
+      color: #a0522d;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .intro-subtext {
+      font-size: 18px;
+      max-width: 720px;
+      margin: 0 auto 40px;
+      line-height: 1.6;
+    }
+
+    .section-subtitle {
+      font-size: 32px;
+      color: #a0522d;
+      margin-top: 50px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .cat-benefits {
+      list-style: none;
+      padding: 0;
+      margin: 0 auto 40px;
+      max-width: 600px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+
+    .cat-benefits li {
+      position: relative;
+      font-size: 18px;
+      padding-left: 0;
+      margin-bottom: 15px;
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    .cat-benefits li::before {
+      content: "🐾";
+      margin-right: 10px;
+    }
+
+
+    .breed-cards {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 200px;
+      margin-top: 20px;
+    }
+
+    .breed-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 120px;
+      margin-bottom: 30px;
+    }
+
+    .breed-card img {
+      width: 250px; /* Fixed width */
+      height: 200px; /* Fixed height */
+      border-radius: 20px;
+      object-fit: cover;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .breed-card p {
+      font-size: 18px;
+      color: #62442f;
+      margin-top: 12px;
+      text-align: center;
+    }
+
+    .section-divider {
+      width: 60px;
+      height: 4px;
+      background-color: #d8b08c;
+      border: none;
+      border-radius: 2px;
+      margin: 40px auto;
+    }
+
+    .site-footer {
+      background-color: #fff4e6;
+      color: #5a4636;
+      text-align: center;
+      padding: 20px 10px;
+      font-size: 15px;
+      font-family: 'BaraTH', sans-serif;
+      border-top: 2px solid #e0b089;
+      margin-top: 60px;
+    }
+  </style>
+
 </head>
+
 <body>
-  <header style="position:relative;text-align:center;padding-top:1.5rem;">
-    <span class="badge" style="position:absolute;left:2rem;top:1.2rem;">Beta</span>
-    <img src="images/RabbitMatch.jpg" alt="RabbitMatch Logo" class="rabbit-logo" />
-    <p style="margin-top:0.5rem;">The smarter way to adopt.</p>
-    <nav style="margin-top: 1.5rem;">
-        <a href="index.html" style="text-decoration: none; color: #62442f; margin: 0 15px; 
-           padding: 8px 16px; border-radius: 20px; background: rgba(255,255,255,0.7);
-           transition: all 0.3s ease;">🏠 Home</a>
-        <a href="cat.html" style="text-decoration: none; color: #62442f; margin: 0 15px;
-           padding: 8px 16px; border-radius: 20px; background: rgba(255,255,255,0.7);
-           transition: all 0.3s ease;">🐱 Cats</a>
-        <a href="dog.html" style="text-decoration: none; color: #62442f; margin: 0 15px;
-           padding: 8px 16px; border-radius: 20px; background: rgba(255,255,255,0.7);
-           transition: all 0.3s ease;">🐶 Dogs</a>
-        <a href="hamster.html" style="text-decoration: none; color: #62442f; margin: 0 15px;
-           padding: 8px 16px; border-radius: 20px; background: rgba(255,255,255,0.7);
-           transition: all 0.3s ease;">🐰 Hamster</a>
-      </nav>
-  </header>
-
   <main>
-    <h2>Welcome to RabbitMatch!</h2>
-    <p>Let AI match you with the perfect rabbit breed based on your lifestyle. 🐇 Discover love at first hop!</p>
-    <img src="images/Rabbits.jpg" alt="Cute Bunny" style="width:100%;max-width:400px;display:block;margin:2rem auto 1rem auto;border-radius:1.5rem;box-shadow:0 2px 16px #7f5af033;" />
+    <section class="catmatch-info">
+      <h2 class="section-title">Welcome to RabbitMatch !</h2>
+      <p class="intro-subtext">
+        Discover the ideal rabbit breed for your lifestyle with our AI-powered assistant. Whether you're looking for a
+        cuddly lap rabbit or an independent explorer, RabbitMatch is here to help!
+      </p>
 
-    <h3>Why RabbitMatch?</h3>
-    <ul>
-      <li>🐾 Personalized breed suggestions</li>
-      <li>💖 Matchmaking based on your lifestyle</li>
-      <li>💬 24/7 RabbitMatch help</li>
-      <li>🌱 Ethical and adoption-first</li>
-    </ul>
+      <hr class="section-divider">
 
-    <h3>Ask RabbitMatch</h3>
-    <section id="chatbot-section">
-      <h3 style="margin-bottom:1rem;display:flex;align-items:center;gap:0.7rem;">
-        <img src="images/RabbitMatch.jpg" alt="RabbitMatch" class="chatbot-avatar" /> Ask RabbitMatch
-      </h3>
+      <h2 class="section-subtitle">Why Choose a Rabbit?</h2>
+      <ul class="cat-benefits">
+        <li>Great for apartments and small homes</li>
+        <li>Independent yet affectionate companions</li>
+        <li>Playful, curious, and entertaining personalities</li>
+        <li>Suitable for both families and individuals</li>
+      </ul>
 
-      <div id="chat-messages" class="chat-scroll-area"></div>
+      <hr class="section-divider" />
 
-      <form id="chat-form" style="display:flex;gap:0.5rem;">
-        <input id="chat-input" type="text" placeholder="Type your question..." style="flex:1;padding:0.5rem 1rem;border-radius:1rem;border:1px solid #e0e7ff;outline:none;" required />
-        <button type="submit">Send</button> <button id="clear-chat" class="clear-btn" type="button">Clear Chat</button>
-      </form>
+      <h2 class="section-subtitle">Popular Rabbit Breeds</h2>
+      <div class="breed-cards">
+        <div class="breed-card">
+          <img src="images/Netherland Dwarf.jpg" alt="Netherland Dwarf" />
+          <p>Netherland Dwarf</p>
+        </div>
+        <div class="breed-card">
+          <img src="images/Holland Lop.jpg" alt="Holland Lop" />
+          <p>Holland Lop</p>
+        </div>
+        <div class="breed-card">
+          <img src="images/Mini Lop.jpg" alt="Mini Lop" />
+          <p>Mini Lop</p>
+        </div>
+      </div>
+      <hr class="section-divider" />
 
-      <div id="chat-error" style="color:#ff3333;font-size:0.95rem;margin-top:0.5rem;"></div>
     </section>
 
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <script>
-      const sessionId = "rabbit-" + (localStorage.getItem("chat-session") || crypto.randomUUID());
-      localStorage.setItem("chat-session", sessionId);
 
-      async function query(data) {
-        const response = await fetch(
-          "https://lvkxe-flowise.hf.space/api/v1/prediction/1a3be9e3-aba0-4e51-b87a-37e36ec37173",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-              question: data.question,
-              sessionId: sessionId
-            })
-          }
-        );
-        const result = await response.json();
-        return result;
-      }
+    <header>
+      <h1>Talk to RabbitMatch <img src="images/RabbitMatch.jpg" alt="Whiskers" class="buddy-icon" /></h1>
+      <p>Your friendly rabbit assistant here to help you find your pawfect match!</p>
+      <nav style="margin-top: 1.5rem; margin-bottom: 2.5rem;">
+        <a href="index.html" style="text-decoration: none; color: #62442f; margin: 0 15px; 
+           padding: 8px 16px; border-radius: 20px; background: rgba(255,255,255,0.9);
+           transition: all 0.3s ease; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">🏠 Home</a>
+        <a href="cat.html" style="text-decoration: none; color: #62442f; margin: 0 15px;
+           padding: 8px 16px; border-radius: 20px; background: rgba(255,255,255,0.9);
+           transition: all 0.3s ease; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">🐱 Cats</a>
+        <a href="dog.html" style="text-decoration: none; color: #62442f; margin: 0 15px;
+           padding: 8px 16px; border-radius: 20px; background: rgba(255,255,255,0.9);
+           transition: all 0.3s ease; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">🐶 Dogs</a>
+        <a href="rabbit.html" style="text-decoration: none; color: #62442f; margin: 0 15px;
+           padding: 8px 16px; border-radius: 20px; background: rgba(255,255,255,0.9);
+           transition: all 0.3s ease; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">🐹 Hamster</a>
+      </nav>
+    </header>
 
-      function renderMarkdown(md) {
-        if (window.marked) {
-          return window.marked.parse(md);
-        }
-        let html = md
-          .replace(/\*\*(.*?)\*\*/g, '<b>$1</b>')
-          .replace(/\*(.*?)\*/g, '<i>$1</i>')
-          .replace(/`([^`]+)`/g, '<code>$1</code>')
-          .replace(/\n/g, '<br>');
-        return html;
-      }
+    <div class="chat-container">
+      <div id="chatbox"></div>
+      <div>
+        <input type="text" id="userInput" placeholder="Ask me about rabbit questions..." />
+        <button onclick="handleSend()">Send</button>
+        <button class="clear-btn" onclick="clearChat()">Clear Chat</button>
+        <div id="chat-error"></div>
+      </div>
+    </div>
 
-      document.addEventListener('DOMContentLoaded', function () {
-        const form = document.getElementById('chat-form');
-        const input = document.getElementById('chat-input');
-        const messages = document.getElementById('chat-messages');
-        const errorDiv = document.getElementById('chat-error');
-        const clearBtn = document.getElementById('clear-chat');
-
-        form.addEventListener('submit', async (e) => {
-          e.preventDefault();
-          const userMsg = input.value.trim();
-          if (!userMsg) return;
-          messages.innerHTML += `<div class='chat-msg user'><b>You:</b> ${userMsg}</div>`;
-          input.value = '';
-          errorDiv.textContent = '';
-          try {
-            messages.innerHTML += `<div class='chat-msg bot' style='color:#888;'>RabbitMatch is thinking...</div>`;
-            const response = await query({ question: userMsg });
-            let botMsg = response.text || JSON.stringify(response);
-            messages.innerHTML = messages.innerHTML.replace('RabbitMatch is thinking...','');
-            messages.innerHTML += `<div class='chat-msg bot'><b>RabbitMatch:</b> ${renderMarkdown(botMsg)}</div>`;
-            messages.scrollTop = messages.scrollHeight;
-          } catch (err) {
-            errorDiv.textContent = 'Sorry, there was a problem contacting RabbitMatch.';
-          }
-        });
-
-        clearBtn.addEventListener('click', () => {
-          messages.innerHTML = '';
-        });
-      });
-    </script>
+    <div style="text-align: center;">
+      <a href="index.html" class="back-btn">← Back to Home</a>
+    </div>
   </main>
-
-  <footer>
-    &copy; 2025 RabbitMatch. Find your perfect bunny. 💕
+  <footer class="site-footer">
+    <p>&copy; 2025 RabbitMatch. Find your perfect pet companion with AI !</p>
   </footer>
+
+  <script>
+    const whiskersImg = "images/RabbitMatch.jpg"; 
+    const chatbox = document.getElementById("chatbox");
+    const errorDiv = document.getElementById("chat-error");
+
+    function renderMarkdown(md) {
+      return md
+        .replace(/\*\*(.*?)\*\*/g, '<b>$1</b>')
+        .replace(/\*(.*?)\*/g, '<i>$1</i>')
+        .replace(/`([^`]+)`/g, '<code>$1</code>')
+        .replace(/\n/g, '<br>');
+    }
+
+    function renderMessage(sender, text) {
+      const msg = document.createElement("div");
+      msg.className = "message " + (sender === "user" ? "user" : "bot");
+
+      const content = `
+        ${sender === "bot" ? `<img src="${whiskersImg}" alt="Whiskers">` : ""}
+        <div class="bubble">${renderMarkdown(text)}</div>
+      `;
+
+      msg.innerHTML = content;
+      chatbox.appendChild(msg);
+      chatbox.scrollTop = chatbox.scrollHeight;
+
+      saveChat();
+    }
+
+    function renderLoading() {
+      const loading = document.createElement("p");
+      loading.className = "loading";
+      loading.id = "loading";
+      loading.textContent = "RabbitMatch is thinking...";
+      chatbox.appendChild(loading);
+      chatbox.scrollTop = chatbox.scrollHeight;
+    }
+
+    function removeLoading() {
+      const loading = document.getElementById("loading");
+      if (loading) loading.remove();
+    }
+
+    async function query(data) {
+      const response = await fetch("https://lvkxe-flowise.hf.space/api/v1/prediction/1a3be9e3-aba0-4e51-b87a-37e36ec37173", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+      const result = await response.json();
+      return result;
+    }
+
+    async function handleSend() {
+      const inputField = document.getElementById("userInput");
+      const input = inputField.value.trim();
+      if (!input) return;
+
+      renderMessage("user", input);
+      inputField.value = "";
+      errorDiv.textContent = "";
+
+      renderLoading();
+
+      try {
+        const response = await query({ question: input });
+        removeLoading();
+        renderMessage("bot", response.text);
+      } catch (err) {
+        removeLoading();
+        errorDiv.textContent = "Oops! Something went wrong. Please try again.";
+      }
+    }
+
+    function saveChat() {
+      localStorage.setItem("catChatHistory", chatbox.innerHTML);
+    }
+
+    function loadChat() {
+      const history = localStorage.getItem("catChatHistory");
+      if (history) chatbox.innerHTML = history;
+    }
+
+    function clearChat() {
+      if (confirm("Are you sure you want to clear the chat history?")) {
+        localStorage.removeItem("catChatHistory");
+        chatbox.innerHTML = "";
+      }
+    }
+
+    window.onload = loadChat;
+    // Listen for Enter key press in input field
+    document.getElementById("userInput").addEventListener("keydown", function (event) {
+      if (event.key === "Enter") {
+        event.preventDefault(); // Prevents accidental form submission
+        handleSend();
+      }
+    });
+
+  </script>
 </body>
+
 </html>
-<style>
-body {
-  background: #FDE4C7;
-  color: #4B2E23;
-  font-family: 'Poppins', 'Segoe UI', sans-serif;
-}
-
-header {
-  background: none;
-  color: #4B2E23;
-  text-align: center;
-  padding-top: 1.5rem;
-  padding-bottom: 0;
-}
-
-nav {
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-  margin-top: 1rem;
-}
-
-nav a {
-  color: #4B2E23;
-  font-weight: bold;
-  font-size: 1.05rem;
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-nav a:hover {
-  color: #8B4A1E;
-}
-
-main {
-  max-width: 900px;
-  margin: 2rem auto;
-  background: #FFF5EA;
-  border-radius: 1.5rem;
-  box-shadow: 0 2px 16px rgba(139, 74, 30, 0.1);
-  padding: 2rem;
-}
-
-h1, h2, h3 {
-  font-family: 'Poppins', 'Inter', Arial, sans-serif;
-  font-weight: 800;
-  letter-spacing: -1px;
-}
-
-/* Chatbot Styling */
-
-.chat-msg {
-  margin-bottom: 0.7rem;
-  padding: 0.7rem 1rem;
-  border-radius: 1.2rem 1.2rem 1.2rem 0.4rem;
-  max-width: 90%;
-  word-break: break-word;
-  font-size: 1.08rem;
-  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
-  transition: background 0.2s, box-shadow 0.2s;
-}
-
-.chat-msg.user {
-  background: #BFA288;
-  color: #4B2E23;
-  font-weight: 600;
-  align-self: flex-end;
-  text-align: right;
-  border-radius: 1.2rem 1.2rem 0.4rem 1.2rem;
-  border: 1px solid #BFA288;
-  box-shadow: 0 2px 8px rgba(139, 74, 30, 0.05);
-}
-
-.chat-msg.bot {
-  background: #FDE4C7;
-  border: 1.5px solid #BFA288;
-  color: #4B2E23;
-  align-self: flex-start;
-  text-align: left;
-  border-radius: 1.2rem 1.2rem 1.2rem 0.4rem;
-  box-shadow: 0 2px 8px rgba(139, 74, 30, 0.07);
-}
-
-#chatbot-section {
-  width: 850px !important;
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  background: #D7D0C8;
-  padding: 1.5rem 1rem;
-  border-radius: 1.2rem;
-  box-shadow: 0 2px 12px rgba(139, 74, 30, 0.1);
-}
-
-.chat-scroll-area {
-  height: 500px;
-  overflow-y: auto;
-  background-color: #FFF5EA;
-  padding: 1rem;
-  border-radius: 1rem;
-  border: 1px solid #FDE4C7;
-  margin-bottom: 1rem;
-  scroll-behavior: smooth;
-}
-
-/* Scrollbar */
-.chat-scroll-area::-webkit-scrollbar {
-  width: 6px;
-}
-.chat-scroll-area::-webkit-scrollbar-thumb {
-  background-color: #BFA288;
-  border-radius: 5px;
-}
-
-/* Input Styling */
-#chat-input {
-  font-size: 1.08rem;
-  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
-  border: 1px solid #FDE4C7;
-  background-color: #FFF5EA;
-  color: #4B2E23;
-  border-radius: 1rem;
-  padding: 0.5rem 1rem;
-}
-
-/* Send Button */
-button[type="submit"] {
-  background: #8B4A1E;
-  color: #FFF5EA;
-  padding: 0.5rem 1.2rem;
-  border-radius: 1rem;
-  border: none;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background 0.2s ease;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-
-button[type="submit"]:hover {
-  background: #BFA288;
-}
-
-/* Clear Button */
-.clear-btn {
-  background-color: #FDE4C7;
-  border: none;
-  padding: 0.5rem 1.2rem;
-  border-radius: 1rem;
-  font-weight: bold;
-  color: #4B2E23;
-  cursor: pointer;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  margin-left: 0.5rem;
-}
-
-.clear-btn:hover {
-  background-color: #bfa288;
-}
-
-.chatbot-avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  object-fit: cover;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin-right: 0.6rem;
-}
-
-footer {
-  text-align: center;
-  color: #BFA288;
-  margin: 3rem 0 1rem 0;
-  font-size: 0.95rem;
-}
-
-@media (max-width: 900px) {
-  #chatbot-section {
-    max-width: 98vw !important;
-    padding: 1.2rem 0.3rem;
-  }
-}
-
-@media (max-width: 600px) {
-  main {
-    padding: 1rem;
-  }
-  header {
-    padding: 1.2rem 0.5rem 0.7rem 0.5rem;
-  }
-  nav {
-    gap: 1rem;
-  }
-}
-
-.rabbit-logo {
-  width: 150px;
-  height: auto;
-  border-radius: 1.5rem;
-  box-shadow: 0 2px 12px rgba(139, 74, 30, 0.2);
-  object-fit: cover;
-  display: block;
-  margin: 0 auto 0.5rem auto;
-}
-
-
-.chat-scroll-area {
-  height: 500px;
-  overflow-y: auto;
-  background-color: #FFF5EA; /* Replaces #fffdf8 */
-  padding: 1rem;
-  border-radius: 1rem;
-  border: 1px solid #FDE4C7; /* Matches palette */
-  margin-bottom: 1rem;
-  scroll-behavior: smooth;
-}
-
-/* Scrollbar Styling */
-.chat-scroll-area::-webkit-scrollbar {
-  width: 6px;
-}
-.chat-scroll-area::-webkit-scrollbar-thumb {
-  background-color: #BFA288; /* Replaces orange for consistency */
-  border-radius: 5px;
-}
-</style>
