@@ -6,73 +6,88 @@
   <title>Find Your Perfect Hamster - HamsterMatch</title>
   <link rel="stylesheet" href="style.css">
   <link rel="icon" href="images/HamsterMatch Logo.png">
+  <style>
+    @font-face {
+      font-family: 'BaraTH';
+      src: url('fonts/bara.ttf') format('truetype');
+    }
+  </style>
 </head>
-<body style="font-family: 'Segoe UI', Tahoma, sans-serif;">
+<body style="font-family: 'Segoe UI', Tahoma, sans-serif; 
+             background: url('images/HamsterBackground.png') no-repeat center center fixed;
+             background-size: cover; margin: 0; padding: 0; min-height: 100vh; 
+             display: flex; flex-direction: column;">
   <!-- Header with centered logo -->
-  <header style="text-align: center; padding: 2rem 0; background: linear-gradient(135deg, #fff5ea 0%, #f0e6d2 100%);">
+  <header style="text-align: center; padding: 20px; background: transparent;">
     <div style="max-width: 800px; margin: 0 auto; padding: 0 20px;">
       <!-- Logo container with perfect centering -->
       <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 1rem;">
         <img src="images/HamsterMatch Logo.png" alt="HamsterMatch Logo" 
-             style="width: 180px; height: 180px; border-radius: 20px; 
+             style="width: 90px; height: 90px; border-radius: 50%; 
                     box-shadow: 0 8px 25px rgba(98, 68, 47, 0.15); 
-                    object-fit: cover; border: 3px solid #fff;">
+                    object-fit: cover; border: 3px solid #fff; vertical-align: middle;">
       </div>
-      <h1 style="color: #62442f; margin: 1rem 0 0.5rem 0; font-size: 2.5rem; font-weight: bold;">
+      <h1 style="color: #62442f; margin: 0; font-size: 55px; font-weight: bold; font-family: 'BaraTH', sans-serif;">
         🐹 HamsterMatch
       </h1>
-      <p style="color: #8b6b3d; font-size: 1.2rem; margin-bottom: 1.5rem;">
+      <p style="color: #5a4636; font-size: 18px; margin: 10px 0;">
         Find your perfect pocket-sized companion!
       </p>
       <nav style="margin-top: 1.5rem;">
         <a href="index.html" style="text-decoration: none; color: #62442f; margin: 0 15px; 
-           padding: 8px 16px; border-radius: 20px; background: rgba(255,255,255,0.7);
-           transition: all 0.3s ease;">🏠 Home</a>
+           padding: 8px 16px; border-radius: 20px; background: rgba(255,255,255,0.9);
+           transition: all 0.3s ease; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">🏠 Home</a>
         <a href="cat.html" style="text-decoration: none; color: #62442f; margin: 0 15px;
-           padding: 8px 16px; border-radius: 20px; background: rgba(255,255,255,0.7);
-           transition: all 0.3s ease;">🐱 Cats</a>
+           padding: 8px 16px; border-radius: 20px; background: rgba(255,255,255,0.9);
+           transition: all 0.3s ease; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">🐱 Cats</a>
         <a href="dog.html" style="text-decoration: none; color: #62442f; margin: 0 15px;
-           padding: 8px 16px; border-radius: 20px; background: rgba(255,255,255,0.7);
-           transition: all 0.3s ease;">🐶 Dogs</a>
+           padding: 8px 16px; border-radius: 20px; background: rgba(255,255,255,0.9);
+           transition: all 0.3s ease; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">🐶 Dogs</a>
         <a href="rabbit.html" style="text-decoration: none; color: #62442f; margin: 0 15px;
-           padding: 8px 16px; border-radius: 20px; background: rgba(255,255,255,0.7);
-           transition: all 0.3s ease;">🐰 Rabbits</a>
+           padding: 8px 16px; border-radius: 20px; background: rgba(255,255,255,0.9);
+           transition: all 0.3s ease; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">🐰 Rabbits</a>
       </nav>
     </div>
   </header>
 
-  <main style="max-width: 800px; margin: 0 auto; padding: 2rem 20px;">
-    <section style="text-align: center; margin-bottom: 3rem;">
-      <h2 style="color: #62442f; font-size: 2rem; margin-bottom: 1rem;">
-        Welcome to HamsterMatch! 🐹
-      </h2>
-      <p style="color: #8b6b3d; font-size: 1.1rem; line-height: 1.6; margin-bottom: 2rem;">
-        Discover the perfect hamster breed for your lifestyle! Our AI-powered matching system 
-        helps you find a furry friend that fits your living situation, experience level, and preferences.
-      </p>
-    </section>
+  <main style="flex: 1; display: flex; justify-content: center; align-items: flex-start; padding: 40px 20px;">
+    <div style="background: rgba(255, 255, 255, 0.95); max-width: 800px; width: 100%; 
+                border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); 
+                overflow: hidden; backdrop-filter: blur(10px);">
+      
+      <!-- Content sections inside the container -->
+      <div style="padding: 2rem 2rem;">
+        <section style="text-align: center; margin-bottom: 3rem;">
+          <h2 style="color: #62442f; font-size: 2rem; margin-bottom: 1rem; font-family: 'BaraTH', sans-serif;">
+            Welcome to HamsterMatch! 🐹
+          </h2>
+          <p style="color: #8b6b3d; font-size: 1.1rem; line-height: 1.6; margin-bottom: 2rem;">
+            Discover the perfect hamster breed for your lifestyle! Our AI-powered matching system 
+            helps you find a furry friend that fits your living situation, experience level, and preferences.
+          </p>
+        </section>
 
     <section style="background: #fff; padding: 2rem; border-radius: 20px; 
                     box-shadow: 0 5px 20px rgba(98, 68, 47, 0.1); margin-bottom: 2rem;">
-      <h3 style="color: #62442f; font-size: 1.5rem; margin-bottom: 1.5rem; text-align: center;">
+      <h3 style="color: #62442f; font-size: 1.5rem; margin-bottom: 1.5rem; text-align: center; font-family: 'BaraTH', sans-serif;">
         🌟 Why Choose a Hamster?
       </h3>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
                   gap: 1.5rem; text-align: left;">
         <div style="padding: 1rem;">
-          <h4 style="color: #62442f; margin-bottom: 0.5rem;">🏠 Perfect for Small Spaces</h4>
+          <h4 style="color: #62442f; margin-bottom: 0.5rem; font-family: 'BaraTH', sans-serif;">🏠 Perfect for Small Spaces</h4>
           <p style="color: #8b6b3d;">Great for apartments and dorms</p>
         </div>
         <div style="padding: 1rem;">
-          <h4 style="color: #62442f; margin-bottom: 0.5rem;">💝 Low Maintenance</h4>
+          <h4 style="color: #62442f; margin-bottom: 0.5rem; font-family: 'BaraTH', sans-serif;">💝 Low Maintenance</h4>
           <p style="color: #8b6b3d;">Easy care routine for busy lifestyles</p>
         </div>
         <div style="padding: 1rem;">
-          <h4 style="color: #62442f; margin-bottom: 0.5rem;">🎭 Entertaining Personalities</h4>
+          <h4 style="color: #62442f; margin-bottom: 0.5rem; font-family: 'BaraTH', sans-serif;">🎭 Entertaining Personalities</h4>
           <p style="color: #8b6b3d;">Playful and fun to watch</p>
         </div>
         <div style="padding: 1rem;">
-          <h4 style="color: #62442f; margin-bottom: 0.5rem;">👨‍👩‍👧‍👦 Family Friendly</h4>
+          <h4 style="color: #62442f; margin-bottom: 0.5rem; font-family: 'BaraTH', sans-serif;">👨‍👩‍👧‍👦 Family Friendly</h4>
           <p style="color: #8b6b3d;">Great pets for children to learn responsibility</p>
         </div>
       </div>
@@ -81,7 +96,7 @@
     <!-- Popular Hamster Breeds -->
     <section style="background: #fff; padding: 2rem; border-radius: 20px; 
                     box-shadow: 0 5px 20px rgba(98, 68, 47, 0.1); margin-bottom: 2rem;">
-      <h3 style="color: #62442f; font-size: 1.5rem; margin-bottom: 1.5rem; text-align: center;">
+      <h3 style="color: #62442f; font-size: 1.5rem; margin-bottom: 1.5rem; text-align: center; font-family: 'BaraTH', sans-serif;">
         🐹 Popular Hamster Breeds
       </h3>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
@@ -89,19 +104,19 @@
         <div style="padding: 1rem; border-radius: 15px; background: #fff5ea;">
           <img src="images/Syrian-Hamster_grande.webp" alt="Syrian Hamster" 
                style="width: 100%; height: 120px; object-fit: cover; border-radius: 10px; margin-bottom: 0.5rem;">
-          <h4 style="color: #62442f; margin-bottom: 0.5rem;">Syrian Hamster</h4>
+          <h4 style="color: #62442f; margin-bottom: 0.5rem; font-family: 'BaraTH', sans-serif;">Syrian Hamster</h4>
           <p style="color: #8b6b3d; font-size: 0.9rem;">Large, solitary, and gentle - perfect for beginners!</p>
         </div>
         <div style="padding: 1rem; border-radius: 15px; background: #fff5ea;">
           <img src="images/dwarf hamster.jpg" alt="Dwarf Hamster" 
                style="width: 100%; height: 120px; object-fit: cover; border-radius: 10px; margin-bottom: 0.5rem;">
-          <h4 style="color: #62442f; margin-bottom: 0.5rem;">Dwarf Hamster</h4>
+          <h4 style="color: #62442f; margin-bottom: 0.5rem; font-family: 'BaraTH', sans-serif;">Dwarf Hamster</h4>
           <p style="color: #8b6b3d; font-size: 0.9rem;">Small, social, and active - great for experienced owners!</p>
         </div>
         <div style="padding: 1rem; border-radius: 15px; background: #fff5ea;">
           <img src="images/Roborovski-hamster.jpg" alt="Roborovski Hamster" 
                style="width: 100%; height: 120px; object-fit: cover; border-radius: 10px; margin-bottom: 0.5rem;">
-          <h4 style="color: #62442f; margin-bottom: 0.5rem;">Roborovski</h4>
+          <h4 style="color: #62442f; margin-bottom: 0.5rem; font-family: 'BaraTH', sans-serif;">Roborovski</h4>
           <p style="color: #8b6b3d; font-size: 0.9rem;">Tiny, fast, and entertaining - for experienced handlers!</p>
         </div>
       </div>
@@ -111,7 +126,7 @@
     <section id="chatbot-section" style="margin-top: 2.5rem; background: #fff; padding: 2rem; 
                                         border-radius: 20px; box-shadow: 0 5px 20px rgba(98, 68, 47, 0.1);">
       <h3 style="margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: center; 
-                 gap: 0.7rem; color: #62442f; font-size: 1.5rem;">
+                 gap: 0.7rem; color: #62442f; font-size: 1.5rem; font-family: 'BaraTH', sans-serif;">
         🤖 Ask Nibbles
       </h3>
       <p style="text-align: center; color: #8b6b3d; margin-bottom: 1.5rem;">
