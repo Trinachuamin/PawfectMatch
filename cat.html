@@ -234,25 +234,14 @@
 
     .breed-cards {
       display: flex;
+      gap: 20px;
+      /* spacing between each card */
       justify-content: center;
       flex-wrap: wrap;
-      gap: 40px;
-      margin-top: 20px;
+      /* allow wrapping on smaller screens */
+      margin-top: 1.5rem;
     }
 
-    .breed-card {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 180px;
-    }
-
-    .breed-card img {
-      width: 100%;
-      border-radius: 20px;
-      object-fit: cover;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    }
 
     .breed-card p {
       font-size: 18px;
@@ -295,6 +284,24 @@
     .nav-button:hover {
       transform: translateY(-5px);
       box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .breed-card img {
+      width: 280px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 12px;
+      display: block;
+      margin: 0 auto;
+      transition: transform 0.4s cubic-bezier(0.25, 0.1, 0.25, 1),
+        box-shadow 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+    }
+
+    .breed-card img:hover {
+      transform: scale(1.03);
+      /* more subtle zoom */
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+      /* soft, smooth shadow */
     }
   </style>
 
@@ -346,7 +353,7 @@
       <p>Your friendly cat assistant here to help you find your purr-fect match!</p>
     </header>
     <nav style="margin-top: 0.5rem; margin-bottom: 2.5rem;">
-      <a href="index.html" class="nav-button">Home</a>
+      <a href="general.html" class="nav-button">General</a>
       <a href="hamster.html" class="nav-button">Hamster</a>
       <a href="dog.html" class="nav-button">Dog</a>
       <a href="rabbit.html" class="nav-button">Rabbit</a>

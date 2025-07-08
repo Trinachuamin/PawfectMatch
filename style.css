@@ -133,14 +133,26 @@ body {
 
 /* Make General Assistant card larger */
 .general-card {
-  width: 380px; /* Slightly larger than others */
+  width: 380px;
+  /* Slightly larger than others */
   max-width: 95%;
 }
 
 .general-card img {
-  border-radius: 18px; /* Optional: slightly rounder corners */
+  border-radius: 18px;
+  /* Optional: slightly rounder corners */
 }
 
 .general-card h2 {
-  font-size: 28px; /* Slightly bigger text */
+  font-size: 28px;
+  /* Slightly bigger text */
+}
+
+.section-divider {
+  width: 60px;
+  height: 4px;
+  background-color: #d8b08c;
+  border: none;
+  border-radius: 2px;
+  margin: 40px auto;
 }
